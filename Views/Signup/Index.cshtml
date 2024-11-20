@@ -1,0 +1,26 @@
+﻿@model Virtumart_MVC_3.Models.User
+
+@using (Html.BeginForm("Index", "Signup", FormMethod.Post))
+{
+    <div class="container">
+        <div>
+            <h4 class="align-content-center">Become a Member</h4>
+            <div class="input-group">
+                <label for="username" class="form-label">Username</label>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @required = "required", style = "display:block; margin-top: 5px" })
+            </div>
+            <div class="input-group">
+                <label for="password" class="form-label">Password</label>
+                <br />
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required" })
+            </div>
+            <br />
+            <button type="submit" class="btn-light" >Submit</button>
+        </div>
+    </div>
+}
+
+@if(ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
