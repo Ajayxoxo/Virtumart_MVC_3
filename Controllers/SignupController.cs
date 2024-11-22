@@ -19,8 +19,14 @@ namespace Virtumart_MVC_3.Controllers
         [HttpPost]
         public IActionResult Index(User user)
         {
+            if (user.Password != user.CPassword)
+            {
+                ViewBag.Message = "Password and Confirm Password must match";
+                return View();
+            }
             if (ModelState.IsValid)
             {
+               
                 var existingUser = _context.userinfo.FirstOrDefault(u => u.Username == user.Username);
                 if (existingUser != null)
                 {
@@ -28,11 +34,12 @@ namespace Virtumart_MVC_3.Controllers
                     ViewBag.Message = "Username already exists. Please choose a different one.";
                     return View();
                 }
+                
                 try
                 {
                     _context.userinfo.Add(user);
                     _context.SaveChanges();
-                    ViewBag.Message = "Sucessfully Added";
+                    ViewBag.Message = "Successfully Added";
                     return View();
                 }
                 catch (Exception ex)
