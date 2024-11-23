@@ -1,6 +1,6 @@
-﻿@model Virtumart_MVC_3.Models.SigninModel
+﻿@model Virtumart_MVC_3.Models.Admin
 
-@using (Html.BeginForm("Signin", "Signin", FormMethod.Post))
+@using (Html.BeginForm("Index", "AdminLogin", FormMethod.Post))
 {
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -8,34 +8,39 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
 
-                        <h4 class="card-title text-center mb-4">Sign In</h4>
+                        <h4 class="card-title text-center mb-4">Admin Login</h4>
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @required = "required", @placeholder = "Enter your Username" })
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @required = "required", @placeholder = "Enter the Username" })
                         </div>
-
+                        
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required", @placeholder = "Enter your Password" })
                         </div>
-
                     </div>
-
                     <div class="card-body">
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </div>
-
                 </div>
                 @if (ViewBag.Message != null)
                 {
-                    <div class="alert alert-danger text-center mt-3" role="alert">
+                    <div class="alert alert-info text-center" role="alert">
                         @ViewBag.Message
                     </div>
-                }
 
+                    @if (ViewBag.Message == "Login Sucessful Redirecting.....")
+                    {
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '/Home/Index';
+                            }, 3000);
+                        </script>
+                    } 
+                }
             </div>
         </div>
     </div>

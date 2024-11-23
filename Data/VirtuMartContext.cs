@@ -9,4 +9,5 @@ public class VirtuMartContext : DbContext
     }
 
     public DbSet<User> userinfo { get; set; }
+    public DbSet<Admin> admininfo { get; set; }
 }
