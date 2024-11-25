@@ -24,7 +24,7 @@ namespace Virtumart_MVC_3.Controllers
             if (Admin != null)
             {
                 ViewBag.Message = "Login Sucessful Redirecting.....";
-                return View();
+                return RedirectToAction("Index", "Product");
             }
 
             ViewBag.Message = "Invaild Username or Password";

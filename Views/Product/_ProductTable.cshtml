@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Virtumart_MVC_3.Models.Product>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered mt-5">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Discount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.productid</td>
+                    <td>@p.productname</td>
+                    <td>@p.productdes</td>
+                    <td>@p.price</td>
+                    <td>@p.quantity</td>
+                    <td>@p.discount</td>
+                    <td>
+                        <a class="btn btn-warning" href="@Url.Action("Update","Product", new {@id = p.productid})">Update</a>
+                        <a class="btn btn-danger" href="@Url.Action("Remove","Product", new {@id = p.productid})">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

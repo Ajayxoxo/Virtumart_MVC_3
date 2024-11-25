@@ -1,0 +1,56 @@
+﻿@model Virtumart_MVC_3.Models.Product
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post))
+{
+    <div class="container mt-5">
+        <div class="row mt-4">
+            <div class="col md-4">
+                <div class="shadow">
+                    <div class="card-body">
+
+                        <h1 class="card-title text-center mb-4">Create New Product</h1>
+                        <div class="mt-3">
+                            <label for="name" class="form-label">Product Name</label>
+                            @Html.TextBoxFor(m => m.productname, new { @class = "form-control", @placeholder = "Enter the Product name", type = "text", @required = "required" })
+                        </div>
+
+
+                        <div class="mt-3">
+                            <label for="description" class="form-label">Product Description</label>
+                            @Html.TextBoxFor(m => m.productdes, new { @class = "form-control", @placeholder = "Enter product description", type = "text", @required = "required" })
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="price" class="form-label">Price</label>
+                            @Html.TextBoxFor(m => m.price, new { @class = "form-control", @placeholder = "Enter the price", type = "number", @required = "required", @min = "0" })
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            @Html.TextBoxFor(m => m.quantity, new { @class = "form-control", @placeholder = "Enter remaining quantity", type = "number", @required = "required", @min = "0" })
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="discount" class="form-label">Discount</label>
+                            @Html.TextBoxFor(m => m.discount, new { @class = "form-control", @placeholder = "Enter disount percent (decimal) (if any)", type = "number", @min = "0" })
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-primary col-md-4">Create</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-info text-center mt-3" role="alert">
+                        @ViewBag.Message
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

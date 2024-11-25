@@ -1,0 +1,46 @@
+﻿@model Virtumart_MVC_3.Models.Product
+
+<div class="container mt-5">
+    <h1 class="text-center">Update Product</h1>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Update", "Product", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.productid)
+
+                <div class="form-group mb-3">
+                    <label for="productname">Product Name</label>
+                    @Html.TextBoxFor(model => model.productname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.productname, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="productdes">Description</label>
+                    @Html.TextBoxFor(model => model.productdes, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.productdes, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="price">Price</label>
+                    @Html.TextBoxFor(model => model.price, new { @class = "form-control", type = "number", step = "0.01" })
+                    @Html.ValidationMessageFor(model => model.price, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="quantity">Quantity</label>
+                    @Html.TextBoxFor(model => model.quantity, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(model => model.quantity, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="discount">Discount (%)</label>
+                    @Html.TextBoxFor(model => model.discount, new { @class = "form-control", type = "number", step = "0.01" })
+                    @Html.ValidationMessageFor(model => model.discount, null, new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Cancel</a>
+            }
+        </div>
+    </div>
+</div>

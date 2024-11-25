@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Admin Dashboard</h2>
+    <div class="row mt-4">
+        <!-- Manage Products -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Products</h5>
+                    <p class="card-text">Add, Update, or Delete Products</p>
+                    <a href="@Url.Action("Product", "Admin")" class="btn btn-primary">Go to Products</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Orders -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">View Orders</h5>
+                    <p class="card-text">View and Manage Orders</p>
+                    <a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Go to Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Users -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">View Registered Users</p>
+                    <a href="@Url.Action("Index", "User")" class="btn btn-primary">Go to Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

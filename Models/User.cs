@@ -5,7 +5,10 @@ namespace Virtumart_MVC_3.Models
 {
     public class User
     {
+
         [Key]
+        public int userid { get; set; } 
+
         [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
 
