@@ -7,7 +7,12 @@ namespace Virtumart_MVC_3.Controllers
     {
         private readonly VirtuMartContext _context;
 
-      
+        private bool IsAdmin()
+        {
+            var role = HttpContext.Session.GetString("role");
+            return role == "admin";
+        }
+
         public ProductController(VirtuMartContext context)
         {
             _context = context;
@@ -15,22 +20,33 @@ namespace Virtumart_MVC_3.Controllers
 
         public IActionResult Index()
         {
+            if (!(IsAdmin()))
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
+
             var products = _context.productinfo.ToList();
             return View(products);
         }
 
         public IActionResult Create()
         {
-
+            if (!(IsAdmin()))
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Product product)
         {
-           
+            if (!(IsAdmin()))
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             try
-            { 
+            {
                 product.updatedAt = DateTime.Now;
                 _context.productinfo.Add(product);
                 _context.SaveChanges();
@@ -46,6 +62,10 @@ namespace Virtumart_MVC_3.Controllers
 
         public IActionResult Update(int id)
         {
+            if (!(IsAdmin()))
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             var product = _context.productinfo.FirstOrDefault(p => p.productid == id);
             if (product == null)
             {
@@ -57,6 +77,10 @@ namespace Virtumart_MVC_3.Controllers
         [HttpPost]
         public IActionResult Update(Product product)
         {
+            if (!(IsAdmin()))
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "Invalid product data.";
@@ -87,6 +111,10 @@ namespace Virtumart_MVC_3.Controllers
         {
             try
             {
+                if (!(IsAdmin()))
+                {
+                    return RedirectToAction("AccessDenied", "Home");
+                }
                 var product = _context.productinfo.FirstOrDefault(_ => _.productid == id);
                 if (product == null)
                 {
@@ -101,14 +129,18 @@ namespace Virtumart_MVC_3.Controllers
                 return View();
             }
         }
-            [HttpPost]
-            public IActionResult Remove(Product product)
+        [HttpPost]
+        public IActionResult Remove(Product product)
+        {
+            if (!(IsAdmin()))
             {
+                return RedirectToAction("AccessDenied", "Home");
+            }
             _context.productinfo.Remove(product);
-            _context.SaveChanges(); 
+            _context.SaveChanges();
             return RedirectToAction("Index");
 
-          
-            }
+
         }
     }
+}

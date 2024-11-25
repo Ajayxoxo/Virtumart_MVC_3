@@ -24,6 +24,7 @@ namespace Virtumart_MVC_3.Controllers
             if (Admin != null)
             {
                 ViewBag.Message = "Login Sucessful Redirecting.....";
+                HttpContext.Session.SetString("role","admin");
                 return RedirectToAction("Index", "Product");
             }
 

@@ -1,8 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="Product/Index">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center mt-5">
+    <h1>Welcome to VirtuMart!</h1>
+    <p class="lead mt-3">
+        Your gateway to the ultimate AR shopping experience. Browse products, interact in 3D, and make smarter decisions.
+    </p>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Explore Products</h5>
+                    <p class="card-text">Discover our AR-enabled products and try them out in your space.</p>
+                    <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Browse Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">User Dashboard</h5>
+                    <p class="card-text">Access your personalized dashboard for orders and wishlist.</p>
+                    <a class="btn btn-secondary" href="@Url.Action("User", "Dashboard")">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Admin Panel</h5>
+                    <p class="card-text">Admins can manage inventory, track orders, and more.</p>
+                    <a class="btn btn-danger" href="@Url.Action("Index", "AdminLogin")">Admin Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

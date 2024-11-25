@@ -28,8 +28,9 @@ namespace Virtumart_MVC_3.Controllers
                     return View();
                 }
                 else 
-                { 
-                    return RedirectToAction("Index","Home");
+                {
+                    HttpContext.Session.SetString("role","user");
+                    return RedirectToAction("User","Dashboard");
                 }
             }
             ViewBag.Message = "Please fill all required fields";
