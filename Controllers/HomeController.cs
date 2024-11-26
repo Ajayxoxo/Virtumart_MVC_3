@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Virtumart_MVC_3.Models;
 
@@ -8,15 +9,20 @@ namespace Virtumart_MVC_3.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly VirtuMartContext _context;
+
+        public HomeController(VirtuMartContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _context.productinfo.ToList();
+            return View(products);
         }
+
 
         public IActionResult Privacy()
         {

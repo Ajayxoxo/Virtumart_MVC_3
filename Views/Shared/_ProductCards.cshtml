@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Virtumart_MVC_3.Models.Product>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="placeholder-img" style="height: 200px; background-color: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                    <!-- Placeholder text or icon -->
+                    <span style="color: #888;">Image Placeholder</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@product.productname</h5>
+                    <p class="card-text">@product.productdes</p>
+                    <p class="card-text">
+                        <strong>Price:</strong> ₹@product.price
+                    </p>
+                    <a href="@Url.Action("Details", "Product", new { id = product.productid })"
+                       class="btn btn-primary">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

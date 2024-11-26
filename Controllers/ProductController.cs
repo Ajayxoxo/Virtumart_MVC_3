@@ -139,8 +139,19 @@ namespace Virtumart_MVC_3.Controllers
             _context.productinfo.Remove(product);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
 
+   
+        public IActionResult Details(int id)
+        {
+            var product = _context.productinfo.FirstOrDefault(p => p.productid == id);
 
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }
