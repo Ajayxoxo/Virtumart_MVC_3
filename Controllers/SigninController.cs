@@ -17,7 +17,7 @@ namespace Virtumart_MVC_3.Controllers
         }
 
         [HttpPost]
-            public IActionResult Signin(SigninModel model)
+        public IActionResult Signin(SigninModel model)
         {
             if (ModelState.IsValid)
             {
@@ -30,7 +30,7 @@ namespace Virtumart_MVC_3.Controllers
                 else 
                 {
                     HttpContext.Session.SetString("role","user");
-                    return RedirectToAction("User","Dashboard");
+                    return RedirectToAction("Index","Home");
                 }
             }
             ViewBag.Message = "Please fill all required fields";

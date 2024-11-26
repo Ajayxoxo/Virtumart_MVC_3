@@ -14,6 +14,7 @@ public class VirtuMartContext : DbContext
     public DbSet<Product> productinfo { get; set; }
     public DbSet<ProductInfo> ProductInfos { get; set; }
     public DbSet<ImageUrl> ImageUrls { get; set; }
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
