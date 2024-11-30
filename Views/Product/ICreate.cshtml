@@ -1,6 +1,6 @@
 ﻿@model Virtumart_MVC_3.Models.IProduct
 
-@using (Html.BeginForm("Create", "Product", FormMethod.Post))
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container mt-5">
         <div class="row mt-4">
@@ -36,12 +36,19 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="image">Upload Imgaes</label>
+                        <input class="form-control" type="file" name="image" multiple></input>
+                    </div>
+
+
                     <div class="card-body">
                         <div class="d-flex">
                             <button type="submit" class="btn btn-primary col-md-4">Create</button>
                         </div>
                     </div>
 
+                    
                 </div>
 
                 @if (ViewBag.Message != null)

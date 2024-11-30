@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Virtumart_MVC_3.Models;
 
 namespace VirtuMart_MVC_3.Models
 {
@@ -18,6 +19,7 @@ namespace VirtuMart_MVC_3.Models
         public string ImageUrlPath { get; set; } 
 
         [ForeignKey("ProductId")]
-        public ProductInfo ProductInfo { get; set; }
+        [Required]
+        public IProduct IProduct { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Virtumart_MVC_3.Models;
+using VirtuMart_MVC_3.Models;
 
 namespace Virtumart_MVC_3.Controllers
 {
@@ -39,7 +41,7 @@ namespace Virtumart_MVC_3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(IProduct product)
         {
             if (!(IsAdmin()))
             {
@@ -75,7 +77,7 @@ namespace Virtumart_MVC_3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Product product)
+        public IActionResult Update(IProduct product)
         {
             if (!(IsAdmin()))
             {
@@ -130,7 +132,7 @@ namespace Virtumart_MVC_3.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Remove(Product product)
+        public IActionResult Remove(IProduct product)
         {
             if (!(IsAdmin()))
             {
@@ -152,6 +154,53 @@ namespace Virtumart_MVC_3.Controllers
             }
 
             return View(product);
+        }
+
+        public IActionResult ICreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ICreate(IProduct product, IEnumerable<IFormFile> images)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                { 
+                    _context.productinfo.Add(product);
+                    _context.SaveChanges();
+
+                    foreach (var image in images) 
+                    {
+                        if (image.Length > 0)
+                        {
+                            string filePath = Path.Combine("wwwroot/images", image.FileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                image.CopyTo(stream);
+                            }
+
+                            var imageUrl = new ImageUrl
+                            {
+                                ProductId = product.productid,
+                                ImageUrlPath = "images" + image.FileName
+                            };
+
+                            _context.ImageUrls.Add(imageUrl);
+                        }
+                    }
+                    
+                }
+
+                _context.SaveChanges();
+                ViewBag.Message = "Product created sucessfully.";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "An error occurred: " + ex.Message;
+            }
+            return View();
         }
     }
 }

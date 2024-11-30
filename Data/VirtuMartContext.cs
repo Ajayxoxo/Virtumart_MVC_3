@@ -11,19 +11,10 @@ public class VirtuMartContext : DbContext
 
     public DbSet<User> userinfo { get; set; }
     public DbSet<Admin> admininfo { get; set; }
-    public DbSet<Product> productinfo { get; set; }
+    public DbSet<IProduct> productinfo { get; set; }
     public DbSet<ProductInfo> ProductInfos { get; set; }
     public DbSet<ImageUrl> ImageUrls { get; set; }
-   
+    
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<ImageUrl>()
-            .HasOne(i => i.ProductInfo)
-            .WithMany(p => p.Images)
-            .HasForeignKey(i => i.ProductId)
-            .OnDelete(DeleteBehavior.Cascade);
 
-        base.OnModelCreating(modelBuilder);
-    }
 }
