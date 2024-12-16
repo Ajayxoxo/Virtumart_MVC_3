@@ -9,17 +9,17 @@ namespace VirtuMart_MVC_3.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ImageId { get; set; } 
+        public int imageid { get; set; } 
 
         [Required]
-        public int ProductId { get; set; } 
+        public int productid { get; set; } 
 
         [Required]
         [StringLength(500)]
-        public string ImageUrlPath { get; set; } 
+        public string imageurl { get; set; } 
 
-        [ForeignKey("ProductId")]
+        [ForeignKey("productid")]
         [Required]
-        public IProduct IProduct { get; set; }
+        public IProduct Product { get; set; }
     }
 }

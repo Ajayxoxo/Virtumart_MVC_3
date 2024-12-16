@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Virtumart_MVC_3.Models;
 using VirtuMart_MVC_3.Models;
@@ -27,7 +28,10 @@ namespace Virtumart_MVC_3.Controllers
                 return RedirectToAction("AccessDenied", "Home");
             }
 
-            var products = _context.productinfo.ToList();
+            var products = _context.productinfo
+                .Include(p => p.Urls)
+                .ToList();
+
             return View(products);
         }
 
@@ -166,41 +170,53 @@ namespace Virtumart_MVC_3.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                { 
-                    _context.productinfo.Add(product);
-                    _context.SaveChanges();
+                product.updatedAt = DateTime.Now;
 
-                    foreach (var image in images) 
-                    {
-                        if (image.Length > 0)
-                        {
-                            string filePath = Path.Combine("wwwroot/images", image.FileName);
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                image.CopyTo(stream);
-                            }
+                // Add product to the database first
+                _context.productinfo.Add(product);
+                _context.SaveChanges(); // This will set the productid of the product
 
-                            var imageUrl = new ImageUrl
-                            {
-                                ProductId = product.productid,
-                                ImageUrlPath = "images" + image.FileName
-                            };
+                string imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
-                            _context.ImageUrls.Add(imageUrl);
-                        }
-                    }
-                    
+                // Ensure the directory exists
+                if (!Directory.Exists(imagesPath))
+                {
+                    Directory.CreateDirectory(imagesPath);
                 }
 
+                foreach (var image in images)
+                {
+                    if (image.Length > 0)
+                    {
+                        string filePath = Path.Combine(imagesPath, image.FileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            image.CopyTo(stream);
+                        }
+
+                        var imageUrl = new ImageUrl
+                        {
+                            productid = product.productid, // Reference the correct productid
+                            imageurl = "images/" + image.FileName
+                        };
+
+                        _context.imageurl.Add(imageUrl);
+                    }
+                }
+
+                // Save image URL data to the database
                 _context.SaveChanges();
-                ViewBag.Message = "Product created sucessfully.";
+
+                ViewBag.Message = "Product created successfully.";
             }
             catch (Exception ex)
             {
                 ViewBag.Message = "An error occurred: " + ex.Message;
             }
+
             return View();
         }
+
+
     }
 }

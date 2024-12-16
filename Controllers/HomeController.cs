@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Virtumart_MVC_3.Models;
+using VirtuMart_MVC_3.Models;
 
 namespace Virtumart_MVC_3.Controllers
 {
@@ -19,7 +20,10 @@ namespace Virtumart_MVC_3.Controllers
 
         public IActionResult Index()
         {
-            var products = _context.productinfo.ToList();
+            var products = _context.productinfo
+                .Include(p => p.Urls)
+                .ToList();
+
             return View(products);
         }
 

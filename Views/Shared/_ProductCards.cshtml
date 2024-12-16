@@ -4,19 +4,26 @@
     @foreach (var product in Model)
     {
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="placeholder-img" style="height: 200px; background-color: #e0e0e0; display: flex; align-items: center; justify-content: center;">
-                    <!-- Placeholder text or icon -->
-                    <span style="color: #888;">Image Placeholder</span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@product.productname</h5>
-                    <p class="card-text">@product.productdes</p>
-                    <p class="card-text">
+            <div class="card shadow-sm" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                @if (product.Urls != null && product.Urls.Count > 0)
+                {
+                    <div style="width: 100%; height: 200px; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #f8f9fa;">
+                        <img src="@Url.Content("~/" + product.Urls.ElementAt(0).imageurl)" alt="Product Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
+                    </div>
+                }
+                else
+                {
+                    <img src="~/images/placeholder.png" alt="Placeholder Image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
+                }
+                <div class="card-body" style="padding: 15px;">
+                    <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;">@product.productname</h5>
+                    <p class="card-text" style="font-size: 0.9rem; color: #6c757d; margin-bottom: 10px;">@product.productdes</p>
+                    <p class="card-text" style="font-size: 1rem; font-weight: bold; color: #333; margin-bottom: 15px;">
                         <strong>Price:</strong> ₹@product.price
                     </p>
                     <a href="@Url.Action("Details", "Product", new { id = product.productid })"
-                       class="btn btn-primary">
+                       class="btn btn-primary"
+                       style="background-color: #007bff; color: #fff; border: none; padding: 10px 15px; font-size: 0.9rem; text-decoration: none; border-radius: 4px;">
                         View Details
                     </a>
                 </div>
